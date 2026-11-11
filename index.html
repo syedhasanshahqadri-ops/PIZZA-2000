@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#7F1D1D">
+<title>Pizza 2000 | Fresh pizza, broast and burgers delivered</title>
+<meta name="description" content="Order fresh pizza, broast, burgers and more from Pizza 2000. Home delivery only.">
+<link rel="canonical" href="https://p90867829-boop.github.io/Pizza-2000/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pizza 2000">
+<meta property="og:title" content="Pizza 2000 | Fresh pizza, broast and burgers delivered">
+<meta property="og:description" content="Order fresh pizza, broast, burgers and more from Pizza 2000. Home delivery only.">
+<meta property="og:url" content="https://p90867829-boop.github.io/Pizza-2000/">
+<meta property="og:image" content="https://p90867829-boop.github.io/Pizza-2000/assets/og-pizza2000.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pizza 2000 logo with the text Fresh pizza, broast and burgers">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pizza 2000 | Fresh pizza, broast and burgers delivered">
+<meta name="twitter:description" content="Order fresh pizza, broast, burgers and more from Pizza 2000. Home delivery only.">
+<meta name="twitter:image" content="https://p90867829-boop.github.io/Pizza-2000/assets/og-pizza2000.png">
+<link rel="icon" href="assets/shs-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.dataset.theme=localStorage.getItem('p2k-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')</script>
+</head>
+<body>
+<header class="bar">
+  <a href="#home" class="brand"><svg class="logo" viewBox="0 0 190 66" role="img" aria-label="Pizza 2000"><text x="96.5" y="40" text-anchor="middle" class="lg s">PIZZA</text><text x="95" y="38" text-anchor="middle" class="lg">PIZZA</text><rect x="48" y="46" width="94" height="17" rx="3" fill="#7F1D1D" stroke="#fff" stroke-width="1.5"/><text x="95" y="59" text-anchor="middle" class="lg2">2000</text></svg></a>
+  <nav><a href="#home">Home</a><a href="#menu">Menu</a><a href="#contact">Contact</a></nav>
+  <div class="tools"><button id="theme" class="ghost" aria-label="Switch theme">Dark</button><button id="cartBtn" class="solid">Cart <b id="cnt">0</b></button><button id="burger" class="ghost burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button></div>
+</header>
+
+<section id="home" class="hero">
+<div class="hero-txt">
+<button id="locBtn" class="pill" type="button">Set your delivery location</button>
+<h1 aria-label="Pizza, hot at your door."><span class="line"><span>Pizza,</span></span><span class="line"><span style="--d:.12s"><b class="words" id="words">hot</b></span></span><span class="line"><span style="--d:.24s">at your door.</span></span></h1>
+<p>Twenty-one pizzas, crispy broast, jumbo burgers and garlic bread, made fresh to order. Delivery only, so it arrives while it is still bubbling.</p>
+<div class="cta"><a href="#menu" class="solid big">Order now</a><span class="note">Flat Rs. 200 delivery per order</span></div>
+<ul class="facts"><li><b data-n="21">0</b>pizzas on the menu</li><li><b data-n="25">0</b>minutes to prepare</li><li><b data-n="480">0</b>Rs. small pizza from</li></ul>
+</div>
+<div class="scene"><div class="stage" id="stage"><div class="pizza"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=75&auto=format&fit=crop" alt="Freshly baked pizza" onerror="this.remove()"></div><div class="orbit" id="orbit"></div><span class="chip c1">Fresh to order</span><span class="chip c2">20 to 25 min</span></div></div>
+</section>
+<div class="marq" aria-hidden="true"><div class="mt" id="mt"></div></div>
+
+<section id="menu" class="wrap">
+  <h2>Our menu</h2>
+  <p class="sub">All pizza is made to order. Extra dressing: Rs. 180 large, Rs. 120 small.</p>
+  <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="Search pizza, burger, broast, fries..." autocomplete="off" aria-label="Search the menu"><button id="qx" type="button" class="ghost" hidden>Clear</button></div>
+<p id="qinfo" class="sub" hidden></p>
+<div id="tabs" class="tabs" role="tablist"></div>
+  <div id="grid" class="grid"></div>
+</section>
+
+<section id="contact" class="wrap contact">
+  <div><h2>Contact</h2><p class="sub">Questions about an order? Call us or send an email.</p>
+    <dl><dt>Phone</dt><dd><a href="tel:03001234567">0300 1234567</a></dd>
+    <dt>Email</dt><dd><a href="mailto:pizza2000.demo@gmail.com">pizza2000.demo@gmail.com</a></dd>
+    <dt>Service</dt><dd>Home delivery only. Preparation time 20 to 25 minutes.</dd></dl></div>
+  <form id="msg" class="card tilt"><label>Your name<input required></label><label>Message<textarea rows="4" required></textarea></label><button class="solid">Send message</button><p id="msgOk" class="ok" hidden>Message sent. We will reply soon.</p></form>
+</section>
+
+<footer class="ft"><div class="mega" aria-hidden="true">PIZZA 2000</div><div class="fr"><span>Pizza 2000. All rights reserved.</span><span class="dev"><img src="assets/shs-logo.png" alt="SHS logo"> Developed by SYED HASAN SHAH</span></div></footer>
+
+<aside id="drawer" class="drawer" aria-hidden="true">
+  <div class="dh"><h3>Your order</h3><button id="close" class="ghost">Close</button></div>
+  <div id="lines" class="lines"></div>
+  <div class="sum"><div><span>Subtotal</span><span id="sub"></span></div><div><span>Delivery charges</span><span>Rs. 200</span></div><div class="tot"><span>Total</span><span id="tot"></span></div></div>
+  <form id="co">
+    <label>Full name<input name="name" required></label>
+    <label>Phone number<input name="phone" type="tel" required pattern="[0-9+ -]{10,15}"></label>
+    <label>Delivery address<textarea name="addr" rows="2" required></textarea></label>
+    <button type="button" class="ghost sm" id="chLoc">Use my current location</button>
+    <fieldset><legend>Pay with</legend>
+      <label class="pay"><input type="radio" name="pay" value="Easypaisa" required> Easypaisa</label>
+      <label class="pay"><input type="radio" name="pay" value="JazzCash"> JazzCash</label>
+      <label class="pay"><input type="radio" name="pay" value="Cash on Delivery"> Cash on Delivery (COD)</label>
+      <div id="payBox" class="paybox" hidden></div>
+      <label id="txnWrap">Transaction ID (after sending payment)<input name="txn" required></label>
+    </fieldset>
+    <button class="solid big" id="place">Place order</button><p id="err" class="err" hidden></p>
+  </form>
+</aside>
+<div id="scrim" class="scrim" hidden></div>
+<div id="loc" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="locT"><div class="card locbox">
+<h3 id="locT">Where should we deliver?</h3><p class="sub">Share your location so our rider can find you quickly.</p>
+<button id="gps" class="solid" type="button">Use my current location</button>
+<div class="or"><span>or type your address</span></div>
+<label>Delivery address<textarea id="addr" rows="3" placeholder="House number, street, area, city"></textarea></label>
+<p id="gpsMsg" class="m" role="status"></p>
+<div class="acts"><button id="locSave" class="solid" type="button">Save address</button><button id="locSkip" class="ghost" type="button">Not now</button></div></div></div>
+<div id="done" class="modal" hidden><div class="card"><h3>Order placed</h3><p>Your order number is <b id="oid"></b>. We will call you to confirm delivery.</p><button id="ok" class="solid">Done</button></div></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body></html>
