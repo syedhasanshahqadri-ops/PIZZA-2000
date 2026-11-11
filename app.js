@@ -34,7 +34,7 @@ $('#qx').onclick=()=>{qs='';$('#q').value='';$('#qx').hidden=true;tabs();grid();
 const sub=()=>cart.reduce((a,x)=>a+x.p*x.q,0);
 function save(){localStorage.setItem('p2k-cart',JSON.stringify(cart));$('#cnt').textContent=cart.reduce((a,x)=>a+x.q,0);
 $('#lines').innerHTML=cart.length?cart.map((x,i)=>`<div class="ln"><b>${x.n}</b><span>${rs(x.p*x.q)}</span><small>${x.o}</small><span></span><div class="q"><button data-d="-1" data-i="${i}">-</button>${x.q}<button data-d="1" data-i="${i}">+</button></div></div>`).join(''):'<p class="sub">Your cart is empty. Pick something from the menu.</p>';
-$('#sub').textContent=rs(sub());$('#tot').textContent=rs(sub()+(cart.length?FEE:0));$('#place').disabled=!cart.length;document.querySelectorAll('.item').forEach(refresh)}
+$('#sub').textContent=rs(sub());$('#tot').textContent=rs(sub()+(cart.length?FEE:0));$('#place').disabled=closed||!cart.length;document.querySelectorAll('.item').forEach(refresh)}
 $('#lines').onclick=e=>{const d=e.target.dataset.d;if(!d)return;const x=cart[e.target.dataset.i];x.q+=+d;if(x.q<1)cart.splice(e.target.dataset.i,1);save()};
 const dr=$('#drawer'),tog=o=>{dr.classList.toggle('open',o);$('#scrim').hidden=!o;dr.setAttribute('aria-hidden',!o)};
 $('#cartBtn').onclick=()=>tog(true);$('#close').onclick=$('#scrim').onclick=()=>tog(false);
@@ -44,11 +44,16 @@ document.querySelectorAll('[name=pay]').forEach(r=>r.onchange=()=>{const b=$('#p
 b.innerHTML=cod?`Pay <b>${rs(sub()+FEE)}</b> in cash to our rider when your order arrives. No advance payment needed.`:`Send <b>${rs(sub()+FEE)}</b> to <b>${r.value}</b> number <b>${PAY[r.value]}</b> (account: Pizza 2000), then enter the transaction ID below.`});
 // firebase
 const ok=window.FB_CONFIG&&FB_CONFIG.projectId,db=ok?(firebase.initializeApp(FB_CONFIG),firebase.firestore()):null;
-$('#co').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),b=$('#place'),er=$('#err');er.hidden=true;b.disabled=true;b.textContent='Placing order';
+// ---- open / closed status (set from staff panel) ----
+let closed=false;const closedMsg='Pizza 2000 is currently closed';
+const cb=document.createElement('div');cb.hidden=true;cb.setAttribute('role','alert');cb.style.cssText='background:#7F1D1D;color:#fff;text-align:center;font-weight:700;padding:10px 16px';cb.textContent=closedMsg;document.body.prepend(cb);
+function shop(){cb.hidden=!closed;const b=$('#place'),er=$('#err');b.disabled=closed||!cart.length;if(closed){er.textContent=closedMsg+'. Orders cannot be placed right now.';er.hidden=false}else if(er.textContent.indexOf(closedMsg)===0){er.hidden=true}}
+if(db)db.collection('settings').doc('store').onSnapshot(d=>{closed=d.exists&&d.data().open===false;shop()},()=>{});
+$('#co').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),b=$('#place'),er=$('#err');if(closed){shop();return}er.hidden=true;b.disabled=true;b.textContent='Placing order';
 const id='P2K-'+Date.now().toString(36).toUpperCase().slice(-6),o={id,name:f.get('name'),phone:f.get('phone'),address:f.get('addr'),location:LOC&&LOC.lat!=null?{lat:LOC.lat,lng:LOC.lng,accuracy:LOC.accuracy||null}:null,payment:f.get('pay'),txn:f.get('pay')==='Cash on Delivery'?'N/A (COD)':f.get('txn'),items:cart.map(({n,o,p,q})=>({n,o,p,q})),subtotal:sub(),delivery:FEE,total:sub()+FEE,status:'New'};
 try{if(db){o.createdAt=firebase.firestore.FieldValue.serverTimestamp();await db.collection('orders').doc(id).set(o)}else throw new Error('Firebase is not configured yet. Add your config in firebase-config.js.');
 cart=[];save();e.target.reset();resetPay();$('#payBox').hidden=true;tog(false);$('#oid').textContent=id;$('#done').hidden=false}
-catch(x){er.textContent='Order not sent. '+x.message;er.hidden=false}b.disabled=!cart.length;b.textContent='Place order'};
+catch(x){er.textContent=x.code==='permission-denied'?closedMsg+'. Orders cannot be placed right now.':'Order not sent. '+x.message;er.hidden=false}b.disabled=closed||!cart.length;b.textContent='Place order'};
 $('#ok').onclick=()=>$('#done').hidden=true;
 $('#msg').onsubmit=e=>{e.preventDefault();$('#msgOk').hidden=false;e.target.reset()};
 // ---- motion and 3D effects ----
